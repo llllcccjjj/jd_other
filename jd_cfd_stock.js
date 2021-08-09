@@ -1,7 +1,12 @@
 "use strict";
 /**
- * 任务、宝箱
- * TODO 助力
+ * 京喜财富岛库存监控
+ * 非死循环脚本
+ * 自行设置cron
+ *
+ * 添加需要监控的品名，&分隔
+ * export CFD_STOCK="必胜客50元美食卡&星巴克50元代金券"
+ *
  */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -43,106 +48,55 @@ exports.__esModule = true;
 var date_fns_1 = require("date-fns");
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
+var dotenv = require("dotenv");
 var CryptoJS = require('crypto-js');
-var notify = require('./sendNotify');
-var appId = 10028, fingerprint, token, enCryptMethodJD;
-var cookie = '', res = '', shareCodes = [];
-var UserName, index;
-var HELP_HW = process.env.HELP_HW ? process.env.HELP_HW : "true";
-console.log('帮助HelloWorld:', HELP_HW);
-var HELP_POOL = process.env.HELP_POOL ? process.env.HELP_POOL : "true";
-console.log('帮助助力池:', HELP_POOL);
-function main() {
-    return __awaiter(this, void 0, void 0, function () {
-        var cookiesArr, i, _a, isLogin, nickName, _i, _b, t, _c, _d, t;
-        return __generator(this, function (_e) {
-            switch (_e.label) {
-                case 0: return [4 /*yield*/, requestAlgo()];
-                case 1:
-                    _e.sent();
-                    return [4 /*yield*/, TS_USER_AGENTS_1.requireConfig()];
-                case 2:
-                    cookiesArr = _e.sent();
-                    i = 0;
-                    _e.label = 3;
-                case 3:
-                    if (!(i < cookiesArr.length)) return [3 /*break*/, 17];
-                    cookie = cookiesArr[i];
-                    UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
-                    index = i + 1;
-                    return [4 /*yield*/, TS_USER_AGENTS_1.TotalBean(cookie)];
-                case 4:
-                    _a = _e.sent(), isLogin = _a.isLogin, nickName = _a.nickName;
-                    if (!isLogin) {
-                        notify.sendNotify(__filename.split('/').pop(), "cookie\u5DF2\u5931\u6548\n\u4EAC\u4E1C\u8D26\u53F7" + index + "\uFF1A" + (nickName || UserName));
-                        return [3 /*break*/, 16];
+var notify = require('./sendNotify.js');
+dotenv.config();
+var appId = 10028, fingerprint, token = '', enCryptMethodJD;
+var cookie = '', cookiesArr = [], res = '';
+var target = process.env.CFD_STOCK
+    ? process.env.CFD_STOCK.split('&')
+    : ['必胜客50元美食卡', '星巴克50元代金券'];
+!(function () { return __awaiter(void 0, void 0, void 0, function () {
+    var _i, _a, j, name_1, stock;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0: return [4 /*yield*/, requestAlgo()];
+            case 1:
+                _b.sent();
+                return [4 /*yield*/, requireConfig()];
+            case 2:
+                _b.sent();
+                cookie = cookiesArr[0];
+                return [4 /*yield*/, api('user/ExchangeState', '_cfd_t,bizCode,dwEnv,dwType,ptag,source,strZone', { dwType: '0' })];
+            case 3:
+                res = _b.sent();
+                for (_i = 0, _a = res.goods; _i < _a.length; _i++) {
+                    j = _a[_i];
+                    name_1 = j.strPrizeName.trim();
+                    stock = j.dwStockNum;
+                    console.log(name_1, stock);
+                    if (target.includes(name_1) && stock !== 0) {
+                        notify.sendNotify("\u8D22\u5BCC\u5C9B\u8865\u8D27\n\n" + name_1, "\u5E93\u5B58\uFF1A" + stock, '', '\n\n你好，世界！');
                     }
-                    console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7" + index + "\u3011" + (nickName || UserName) + "\n");
-                    return [4 /*yield*/, api('query', 'signhb_source,smp,type', { signhb_source: 5, smp: '', type: 1 })];
-                case 5:
-                    res = _e.sent();
-                    _i = 0, _b = res.commontask;
-                    _e.label = 6;
-                case 6:
-                    if (!(_i < _b.length)) return [3 /*break*/, 10];
-                    t = _b[_i];
-                    if (!(t.browsetime === '0' && t.status === 1)) return [3 /*break*/, 9];
-                    console.log(t.browsetime, t.status, t.taskname);
-                    return [4 /*yield*/, api("https://m.jingxi.com/fanxiantask/signhb/dotask?task=" + t.task + "&signhb_source=5&_=" + Date.now() + "&sceneval=2&g_login_type=1&callback=jsonpCBKB&g_ty=ls", '')];
-                case 7:
-                    res = _e.sent();
-                    if (res.ret === 0) {
-                        console.log('任务完成，获得：', res.sendhb);
-                    }
-                    else {
-                        console.log('任务失败：', res.errmsg);
-                    }
-                    return [4 /*yield*/, TS_USER_AGENTS_1.wait(2000)];
-                case 8:
-                    _e.sent();
-                    _e.label = 9;
-                case 9:
-                    _i++;
-                    return [3 /*break*/, 6];
-                case 10: return [4 /*yield*/, api('query', 'signhb_source,smp,type', { signhb_source: 5, smp: '', type: 1 })];
-                case 11:
-                    res = _e.sent();
-                    if (!(res.baoxiang_left != 0)) return [3 /*break*/, 16];
-                    _c = 0, _d = res.baoxiang_stage;
-                    _e.label = 12;
-                case 12:
-                    if (!(_c < _d.length)) return [3 /*break*/, 16];
-                    t = _d[_c];
-                    if (!(t.status === 1)) return [3 /*break*/, 15];
-                    return [4 /*yield*/, api("https://m.jingxi.com/fanxiantask/signhb/bxdraw?_=" + Date.now() + "&sceneval=2", '')];
-                case 13:
-                    res = _e.sent();
-                    console.log('开宝箱，获得：', res.sendhb);
-                    return [4 /*yield*/, TS_USER_AGENTS_1.wait(2000)];
-                case 14:
-                    _e.sent();
-                    _e.label = 15;
-                case 15:
-                    _c++;
-                    return [3 /*break*/, 12];
-                case 16:
-                    i++;
-                    return [3 /*break*/, 3];
-                case 17: return [2 /*return*/];
-            }
-        });
+                }
+                return [2 /*return*/];
+        }
     });
-}
-main().then();
+}); })();
 function api(fn, stk, params) {
     var _this = this;
     if (params === void 0) { params = {}; }
-    return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-        var url, key, data, e_1;
+    return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
+        var url, key, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    url = "https://m.jingxi.com/fanxiantask/signhb/" + fn + "?_stk=" + encodeURIComponent(stk) + "&_ste=1&_=" + Date.now() + "&sceneval=2&g_login_type=1&callback=jsonpCBKB&g_ty=ls";
+                    url = "https://m.jingxi.com/jxbfd/" + fn + "?strZone=jxbfd&bizCode=jxbfd&source=jxbfd&dwEnv=7&_cfd_t=" + Date.now() + "&ptag=&_ste=1&_=" + Date.now() + "&sceneval=2&_stk=" + encodeURIComponent(stk);
+                    if (['GetUserTaskStatusList', 'Award', 'DoTask'].includes(fn)) {
+                        console.log('api2');
+                        url = "https://m.jingxi.com/newtasksys/newtasksys_front/" + fn + "?strZone=jxbfd&bizCode=jxbfddch&source=jxbfd&dwEnv=7&_cfd_t=" + Date.now() + "&ptag=&_stk=" + encodeURIComponent(stk) + "&_ste=1&_=" + Date.now() + "&sceneval=2";
+                    }
                     if (Object.keys(params).length !== 0) {
                         key = void 0;
                         for (key in params) {
@@ -151,36 +105,18 @@ function api(fn, stk, params) {
                         }
                     }
                     url += '&h5st=' + decrypt(stk, url);
-                    if (fn.match(/(dotask|bxdraw)/)) {
-                        url = fn;
-                    }
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, axios_1["default"].get(url, {
                             headers: {
                                 'Host': 'm.jingxi.com',
-                                'User-Agent': 'jdpingou;',
                                 'Referer': 'https://st.jingxi.com/',
-                                'X-Requested-With': 'com.jd.pingou',
+                                'User-Agent': TS_USER_AGENTS_1["default"],
                                 'Cookie': cookie
                             }
                         })];
-                case 2:
+                case 1:
                     data = (_a.sent()).data;
-                    if (typeof data === 'string') {
-                        data = data.replace('try{jsonpCBKB(', '').replace('try{Query(', '').replace('try{BxDraw(', '').split('\n')[0];
-                        resolve(JSON.parse(data));
-                    }
-                    else {
-                        resolve(data);
-                    }
-                    return [3 /*break*/, 4];
-                case 3:
-                    e_1 = _a.sent();
-                    reject(401);
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    resolve(data);
+                    return [2 /*return*/];
             }
         });
     }); });
@@ -224,6 +160,7 @@ function requestAlgo() {
                                         data = (_a.sent()).data;
                                         if (data['status'] === 200) {
                                             token = data.data.result.tk;
+                                            console.log('token:', token);
                                             enCryptMethodJDString = data.data.result.algo;
                                             if (enCryptMethodJDString)
                                                 enCryptMethodJD = new Function("return " + enCryptMethodJDString)();
@@ -232,7 +169,7 @@ function requestAlgo() {
                                             console.log("fp: " + fingerprint);
                                             console.log('request_algo 签名参数API请求失败:');
                                         }
-                                        resolve(200);
+                                        resolve();
                                         return [2 /*return*/];
                                 }
                             });
@@ -262,6 +199,19 @@ function decrypt(stk, url) {
     var hash2 = CryptoJS.HmacSHA256(st, hash1.toString()).toString(CryptoJS.enc.Hex);
     return encodeURIComponent(["".concat(timestamp.toString()), "".concat(fingerprint.toString()), "".concat(appId.toString()), "".concat(token), "".concat(hash2)].join(";"));
 }
+function requireConfig() {
+    return new Promise(function (resolve) {
+        console.log('开始获取配置文件\n');
+        var jdCookieNode = require('./jdCookie.js');
+        Object.keys(jdCookieNode).forEach(function (item) {
+            if (jdCookieNode[item]) {
+                cookiesArr.push(jdCookieNode[item]);
+            }
+        });
+        console.log("\u5171" + cookiesArr.length + "\u4E2A\u4EAC\u4E1C\u8D26\u53F7\n");
+        resolve();
+    });
+}
 function generateFp() {
     var e = "0123456789";
     var a = 13;
@@ -276,4 +226,11 @@ function getQueryString(url, name) {
     if (r != null)
         return unescape(r[2]);
     return '';
+}
+function wait(t) {
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve();
+        }, t);
+    });
 }
