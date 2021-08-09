@@ -63,7 +63,7 @@ jobs:
         git config --local user.email "zzuser@1998@gmail.com"
         git config --local user.name "LLL"
         git add .
-        git pull origin master 
+        git pull origin master
         git diff --quiet && git diff --staged --quiet || git commit -am 'update'
     - name: Push Dust
       uses: ad-m/github-push-action@master
