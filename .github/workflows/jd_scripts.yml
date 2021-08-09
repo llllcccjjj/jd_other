@@ -51,15 +51,14 @@ jobs:
         #cp -f ./Aaron/jd_jump.js ./
         cp -rf ./Aaron/utils ./
         rm -rf ./Aaron
-        echo "========= 开始下载utterliar1转换的ts脚本 ========="
-        git clone https://github.com/utterliar1/jd_scripts.git
+        echo "========= 开始下载gossh520转换的ts脚本 ========="
+        git clone https://github.com/gossh520/jd-v4.git
         cp -f ./jd_cfd*.js ./
-        rm -rf jd_cfdtx.js
         cp -f ./jd_jx*.js ./
-        rm -rf ./utterliar1
+        rm -rf ./gossh520
         echo "========= 开始下载单文件脚本 ========="
         #wget -N https://github.com/jiulan/platypus/raw/main/scripts/jd_nzmh.js
-        wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jx_sign.js
+        #wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jx_sign.js
         wget -N https://github.com/yangtingxiao/QuantumultX/raw/master/scripts/jd/jd_lotteryMachine.js
         wget -N https://github.com/NobyDa/Script/raw/master/JD-DailyBonus/JD_DailyBonus.js
         wget -N https://github.com/jiulan/platypus/raw/main/scripts/jd_shop_sign.js
