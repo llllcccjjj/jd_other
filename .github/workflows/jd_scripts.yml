@@ -1,0 +1,74 @@
+name: all-in-one
+on:
+  schedule:
+    - cron: 5 */6 * * *
+  watch:
+    types: started
+jobs:
+  build:
+    runs-on: Ubuntu-20.04  
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install build dependencies
+      run: |
+        sudo npm install -g typescript
+        sudo apt-get install wget
+        sudo apt install rename
+    - name: down
+      run: |
+        echo "========= 开始清空脚本 ========="
+        shopt -s extglob
+        rm -rf !(docker|backup|account.json|Loon|QuantumultX|README.md|jd_half_redrain.js|jd_super_redrain.js)
+        shopt -u extglob
+        echo "========= 开始下载smiek2221的脚本 ========="
+        git clone https://github.com/smiek2221/scripts.git  ./smiek2221
+        rm -r ./smiek2221/USER_AGENTS.js
+        cp -f ./smiek2221/*_*.js ./
+        rm -rf ./smiek2221
+        echo "========= 开始下载cdle的脚本 ========="
+        git clone https://github.com/cdle/jd_study.git  ./cdle
+        cp -f ./cdle/*_*.js ./
+        rm -rf ./cdle
+        echo "========= 开始下载Wenmoux的脚本 ========="
+        git clone -b wen https://github.com/Wenmoux/scripts.git ./Wenmoux
+        mv ./Wenmoux/jd/chinnkarahoi_jd_bookshop.js ./jd_bookshopWenmoux.js
+        cp -f ./Wenmoux/jd/*_*.js ./
+        rm -rf ./Wenmoux
+        echo "========= 开始下载curtinlv的脚本 ========="
+        git clone https://github.com/curtinlv/JD-Script.git ./curtinlv
+        find ./curtinlv/ -name "*py" -type f -exec cp {} ./ \;
+        rm -rf ./curtinlv
+        echo "========= 开始下载airacg的脚本及依赖 ========="
+        git clone https://github.com/airacg/jd_task.git ./airacg
+        cp -r ./airacg/utils ./
+        cp -f ./airacg/*_*.js ./
+        rm -rf ./airacg
+        echo "========= 开始下载小小的脚本及依赖 ========="
+        git clone -b jd_scripts https://github.com/Aaron-lv/sync.git ./Aaron
+        cp -f ./Aaron/jd_joy_reward.js ./
+        cp -f ./Aaron/jd_blueCoin.js ./
+        cp -f ./Aaron/jd_cfdtx.js ./
+        #cp -f ./Aaron/jd_jump.js ./
+        cp -rf ./Aaron/utils ./
+        rm -rf ./Aaron
+        echo "========= 开始下载JDHelloWorld的脚本 ========="
+        git clone https://github.com/JDHelloWorld/jd_scripts.git ./JDHelloWorld
+        mv ./JDHelloWorld/githubAction.md ./githubAction.md
+        echo "========= 开始下载单文件脚本 ========="
+        #wget -N https://github.com/jiulan/platypus/raw/main/scripts/jd_nzmh.js
+        wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jx_sign.js
+        wget -N https://github.com/yangtingxiao/QuantumultX/raw/master/scripts/jd/jd_lotteryMachine.js
+        wget -N https://github.com/NobyDa/Script/raw/master/JD-DailyBonus/JD_DailyBonus.js
+        wget -N https://github.com/jiulan/platypus/raw/main/scripts/jd_shop_sign.js
+    - name: 'Commit Files'
+      id: commit
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git diff --quiet && git diff --staged --quiet || git commit -am 'update'
+    - name: Push Dust
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.PAT }}
+        branch: master
