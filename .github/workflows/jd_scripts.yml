@@ -53,8 +53,8 @@ jobs:
         rm -rf ./Aaron
         echo "========= 开始下载gossh520转换的ts脚本 ========="
         git clone https://github.com/gossh520/jd-v4.git
-        cp -f ./gossh520/jd_cfd*.js ./
-        cp -f ./gossh520/jd_jx*.js ./
+        cp -f ./gossh520/jd_cf*.js ./
+        cp -f ./gossh520/jx_*.js ./
         rm -rf ./gossh520
         echo "========= 开始下载单文件脚本 ========="
         #wget -N https://github.com/jiulan/platypus/raw/main/scripts/jd_nzmh.js
