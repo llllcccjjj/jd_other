@@ -55,6 +55,7 @@ jobs:
         git clone https://github.com/gossh520/jd-v4.git ./gossh520
         cp -f ./gossh520/jd_cf*.js ./
         cp -f ./gossh520/jx_*.js ./
+        cp -f ./gossh520/jd_jx*.js ./
         cp -f ./gossh520/TS_USER_AGENTS.js ./
         echo "========= 保存package.json里面的npm依赖 ========="
         cp -f ./gossh520/pack*.json ./
