@@ -51,9 +51,6 @@ jobs:
         #cp -f ./Aaron/jd_jump.js ./
         cp -rf ./Aaron/utils ./
         rm -rf ./Aaron
-        echo "========= 开始下载JDHelloWorld的脚本 ========="
-        git clone https://github.com/JDHelloWorld/jd_scripts.git ./JDHelloWorld
-        mv ./JDHelloWorld/githubAction.md ./githubAction.md
         echo "========= 开始下载单文件脚本 ========="
         #wget -N https://github.com/jiulan/platypus/raw/main/scripts/jd_nzmh.js
         wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jx_sign.js
