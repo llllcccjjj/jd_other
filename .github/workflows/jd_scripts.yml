@@ -67,6 +67,8 @@ jobs:
         wget -N https://github.com/yangtingxiao/QuantumultX/raw/master/scripts/jd/jd_lotteryMachine.js
         wget -N https://github.com/NobyDa/Script/raw/master/JD-DailyBonus/JD_DailyBonus.js
         wget -N https://github.com/jiulan/platypus/raw/main/scripts/jd_shop_sign.js
+        wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_golden_machine.js
+        wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_dpqd.js
     - name: 'Commit Files'
       id: commit
       run: |
