@@ -70,6 +70,9 @@ jobs:
         #wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jx_sign.js
         wget -N https://github.com/yangtingxiao/QuantumultX/raw/master/scripts/jd/jd_lotteryMachine.js
         wget -N https://github.com/NobyDa/Script/raw/master/JD-DailyBonus/JD_DailyBonus.js
+        wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_nzmh.js
+        wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_wish.js
+        wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_ccSign.js
     - name: 'Commit Files'
       id: commit
       run: |
