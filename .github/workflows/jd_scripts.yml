@@ -57,7 +57,7 @@ jobs:
         cp -f ./gossh520/jx_*.js ./
         cp -f ./gossh520/jd_jx*.js ./
         cp -f ./gossh520/TS_USER_AGENTS.js ./
-        cp -rf ./gossh520/tools ./
+        #cp -rf ./gossh520/tools ./
         echo "========= 保存package.json里面的npm依赖 ========="
         cp -f ./gossh520/pack*.json ./
         rm -rf ./gossh520
@@ -76,6 +76,7 @@ jobs:
         wget -N https://raw.githubusercontent.com/Ariszy/Private-Script/master/JD/zy_kxcdz.js
         wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_cleancart.js
         wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_qqxing.js
+        wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_plantBean.js
     - name: 'Commit Files'
       id: commit
       run: |
