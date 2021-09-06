@@ -25,10 +25,10 @@ jobs:
         rm -r ./smiek2221/USER_AGENTS.js
         cp -f ./smiek2221/*_*.js ./
         rm -rf ./smiek2221
-        echo "========= 开始下载cdle的脚本 ========="
-        git clone https://github.com/llllcccjjj/xdd-1.git  ./cdle
-        cp -f ./cdle/scripts/*_*.js ./
-        rm -rf ./cdle
+        #echo "========= 开始下载cdle的脚本 ========="
+        #git clone https://github.com/llllcccjjj/xdd-1.git  ./cdle
+        #cp -f ./cdle/scripts/*_*.js ./
+        #rm -rf ./cdle
         #echo "========= 开始下载Wenmoux的脚本 ========="
         #git clone -b wen https://github.com/Wenmoux/scripts.git ./Wenmoux
         #mv ./Wenmoux/jd/chinnkarahoi_jd_bookshop.js ./jd_bookshopWenmoux.js
@@ -41,7 +41,7 @@ jobs:
         echo "========= 开始下载airacg的脚本及依赖 ========="
         git clone https://github.com/airacg/jd_task.git ./airacg
         cp -r ./airacg/function ./
-        cp -f ./airacg/*-*.js ./
+        cp -f ./airacg/*_*.js ./
         rm -rf ./airacg
         echo "========= 开始下载小小的脚本及依赖 ========="
         git clone -b jd_scripts https://github.com/Aaron-lv/sync.git ./Aaron
