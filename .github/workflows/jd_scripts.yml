@@ -65,6 +65,10 @@ jobs:
         git clone -b main https://github.com/star261/jd.git ./star261
         cp -f ./star261/scripts/jd_*.js ./
         rm -rf ./star261
+        echo "========= 开始下载faker的脚本 ========="
+        git clone -b main https://github.com/shufflewzc/faker2.git ./faker
+        cp -f ./faker/jd_f.*.js ./
+        rm -rf ./faker
         echo "========= 开始下载单文件脚本 ========="
         #wget -N https://github.com/jiulan/platypus/raw/main/scripts/jd_nzmh.js
         #wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jx_sign.js
@@ -76,6 +80,7 @@ jobs:
         wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_cleancart.js
         wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_qqxing.js
         wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_plantBean.js
+        wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_unsubscribe_xh.js
     - name: 'Commit Files'
       id: commit
       run: |
