@@ -67,7 +67,7 @@ jobs:
         rm -rf ./star261
         echo "========= 开始下载faker的脚本 ========="
         git clone -b main https://github.com/shufflewzc/faker2.git ./faker
-        cp -f ./faker/jd_f*.js ./
+        cp -f ./faker/jd_f*[aco].js ./
         rm -rf ./faker
         echo "========= 开始下载单文件脚本 ========="
         #wget -N https://github.com/jiulan/platypus/raw/main/scripts/jd_nzmh.js
