@@ -34,6 +34,10 @@ jobs:
         #mv ./Wenmoux/jd/chinnkarahoi_jd_bookshop.js ./jd_bookshopWenmoux.js
         #cp -f ./Wenmoux/jd/*_*.js ./
         #rm -rf ./Wenmoux
+        echo "========= 开始下载passerby-b的脚本 ========="
+        git clone https://github.com/passerby-b/JDDJ.git ./jddj
+        cp ./jddj/jddj*.js ./
+        rm -rf ./jddj
         echo "========= 开始下载curtinlv的脚本 ========="
         git clone https://github.com/curtinlv/JD-Script.git ./curtinlv
         find ./curtinlv/ -name "*py" -type f -exec cp {} ./ \;
@@ -43,24 +47,24 @@ jobs:
         cp -r ./airacg/function ./
         cp -f ./airacg/*_*.js ./
         rm -rf ./airacg
-        echo "========= 开始下载小小的脚本及依赖 ========="
-        git clone -b jd_scripts https://github.com/Aaron-lv/sync.git ./Aaron
-        cp -f ./Aaron/jd_joy_reward.js ./
-        cp -f ./Aaron/jd_blueCoin.js ./
+        #echo "========= 开始下载小小的脚本及依赖 ========="
+        #git clone -b jd_scripts https://github.com/Aaron-lv/sync.git ./Aaron
+        #cp -f ./Aaron/jd_joy_reward.js ./
+        #cp -f ./Aaron/jd_blueCoin.js ./
         #cp -f ./Aaron/jd_cfdtx.js ./
         #cp -f ./Aaron/jd_jump.js ./
-        cp -rf ./Aaron/utils ./
-        rm -rf ./Aaron
-        echo "========= 开始下载gossh520转换的ts脚本 ========="
-        git clone https://github.com/gossh520/jd-v4.git ./gossh520
-        cp -f ./gossh520/jd_cf*.js ./
-        cp -f ./gossh520/jx_*.js ./
-        cp -f ./gossh520/jd_jx*.js ./
-        cp -f ./gossh520/TS_USER_AGENTS.js ./
+        #cp -rf ./Aaron/utils ./
+        #rm -rf ./Aaron
+        #echo "========= 开始下载gossh520转换的ts脚本 ========="
+        #git clone https://github.com/gossh520/jd-v4.git ./gossh520
+        #cp -f ./gossh520/jd_cf*.js ./
+        #cp -f ./gossh520/jx_*.js ./
+        #cp -f ./gossh520/jd_jx*.js ./
+        #cp -f ./gossh520/TS_USER_AGENTS.js ./
         #cp -rf ./gossh520/tools ./
-        echo "========= 保存package.json里面的npm依赖 ========="
-        cp -f ./gossh520/pack*.json ./
-        rm -rf ./gossh520
+        #echo "========= 保存package.json里面的npm依赖 ========="
+        #cp -f ./gossh520/pack*.json ./
+        #rm -rf ./gossh520
         echo "========= 开始下载star261的脚本 ========="
         git clone -b main https://github.com/star261/jd.git ./star261
         cp -f ./star261/scripts/jd_*.js ./
@@ -70,17 +74,10 @@ jobs:
         cp -f ./faker/jd_f[aco]*.js ./
         rm -rf ./faker
         echo "========= 开始下载单文件脚本 ========="
-        #wget -N https://github.com/jiulan/platypus/raw/main/scripts/jd_nzmh.js
-        #wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jx_sign.js
-        wget -N https://github.com/yangtingxiao/QuantumultX/raw/master/scripts/jd/jd_lotteryMachine.js
-        wget -N https://github.com/NobyDa/Script/raw/master/JD-DailyBonus/JD_DailyBonus.js
-        wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_nzmh.js
-        wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_wish.js
-        wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_ccSign.js
         wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_cleancart.js
         wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_qqxing.js
-        wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_plantBean.js
-        wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_unsubscribe_xh.js
+        #wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_plantBean.js
+        #wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_unsubscribe_xh.js
     - name: 'Commit Files'
       id: commit
       run: |
