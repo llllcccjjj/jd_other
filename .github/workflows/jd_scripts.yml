@@ -74,11 +74,10 @@ jobs:
         cp -f ./faker/jd_f[aco]*.js ./
         rm -rf ./faker
         echo "========= 开始下载单文件脚本 ========="
-        wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_cleancart.js
+        #wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_cleancart.js
         wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_qqxing.js
         #wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_plantBean.js
         #wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_unsubscribe_xh.js
-        wget -N https://raw.githubusercontent.com/Ariszy/Private-Script/5395c6f18ea7ddc0ee26f00fb93b2d55d9e0ed00/JD/zy_ddwj.js
     - name: 'Commit Files'
       id: commit
       run: |
