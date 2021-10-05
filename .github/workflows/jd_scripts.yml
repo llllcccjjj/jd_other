@@ -76,6 +76,7 @@ jobs:
         echo "========= 开始下载单文件脚本 ========="
         #wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_cleancart.js
         wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_qqxing.js
+        wget -N https://raw.githubusercontent.com/llllcccjjj/ownusing/main/jd_genz.js
         #wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_plantBean.js
         #wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_unsubscribe_xh.js
     - name: 'Commit Files'
