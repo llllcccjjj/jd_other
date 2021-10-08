@@ -2,6 +2,8 @@
 
 **/
 
+const { da } = require('date-fns/locale');
+
 const $ = new Env("超店会员福利社");
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -42,7 +44,8 @@ if ($.isNode()) {
                 continue
             }
             authorCodeList = [
-                '9cc579792aef4986809f1720fca3f470',
+                '67da87cee588481b886d60af864bf59c',
+                'ab9643010262431da639ef9d5533fe8d',
             ]
             $.bean = 0;
             $.ADID = getUUID('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 1);
@@ -50,7 +53,7 @@ if ($.isNode()) {
             // $.authorCode = authorCodeList[random(0, authorCodeList.length)]
             $.authorCode = ownCode['actorUuid'] ? ownCode['actorUuid'] : authorCodeList[random(0, authorCodeList.length)]
             $.authorNum = `${random(1000000, 9999999)}`
-            $.activityId = 'dz2109100001616201'
+            $.activityId = 'dz2109100001616222'
             $.activityShopId = '1000016162'
             $.activityUrl = `https://lzdz1-isv.isvjcloud.com/dingzhi/shop/league/activity?activityId=${$.activityId}&shareUuid=${encodeURIComponent($.authorCode)}&adsource=null&shareuserid4minipg=null&shopid=${$.activityShopId}&lng=00.000000&lat=00.000000&sid=&un_area=`
             await superFans();
@@ -98,7 +101,7 @@ async function superFans() {
                     await task('shop/league/saveTask', `activityId=${$.activityId}&pin=${encodeURIComponent($.secretPin)}&actorUuid=${$.actorUuid}&shareUuid=${encodeURIComponent($.authorCode)}&taskType=1&taskValue=1`)
                 } else {
                     $.log("已经关注过了\n")
-                    return
+                    // return
                 }
                 $.log("\n加入店铺会员");
                 if ($.openCardStatus) {
@@ -146,6 +149,11 @@ async function superFans() {
                     } else {
                         $.log("已经关注过了\n")
                     }
+                    
+                    $.startDraw =true
+                    while($.startDraw){
+                        await task('shop/league/startDraw', `activityId=${$.activityId}&actorUuid=${$.actorUuid}&pin=${encodeURIComponent($.secretPin)}`)
+                    }
                 } else {
                     $.log("没有获取到对应的任务。\n");
                 }
@@ -172,6 +180,11 @@ function task(function_id, body, isCommon = 0) {
                         data = JSON.parse(data);
                         if (data.result) {
                             switch (function_id) {
+                                case 'shop/league/startDraw':
+                                    if(data.result){
+                                        console.log(data.data.name)
+                                    } 
+                                    break;
                                 case 'dz/common/getSimpleActInfoVo':
                                     $.jdActivityId = data.data.jdActivityId;
                                     $.venderId = data.data.venderId;
@@ -225,6 +238,9 @@ function task(function_id, body, isCommon = 0) {
                             }
                         } else {
                             $.log(JSON.stringify(data))
+                            if(data.errorMessage.includes('您的抽奖次数不足')){
+                                $.startDraw = false
+                            }
                         }
                     } else {
                         $.log("京东没有返回数据")
