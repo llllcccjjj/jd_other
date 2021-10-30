@@ -74,6 +74,9 @@ jobs:
         #cp -f ./faker/jd_f[aco]*.js ./
         #rm -rf ./faker
         echo "========= 开始下载单文件脚本 ========="
+        wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_dpqd_diy.js
+        wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_joy_park_task.js
+        wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_joy_park_help.js
         #wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_cleancart.js
         #wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_qqxing.js
         #wget -N https://raw.githubusercontent.com/llllcccjjj/ownusing/main/jd_genz.js
