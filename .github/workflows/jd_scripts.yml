@@ -34,10 +34,10 @@ jobs:
         #mv ./Wenmoux/jd/chinnkarahoi_jd_bookshop.js ./jd_bookshopWenmoux.js
         #cp -f ./Wenmoux/jd/*_*.js ./
         #rm -rf ./Wenmoux
-        echo "========= 开始下载passerby-b的脚本 ========="
-        git clone https://github.com/passerby-b/JDDJ.git ./jddj
-        cp ./jddj/jddj*.js ./
-        rm -rf ./jddj
+        #echo "========= 开始下载passerby-b的脚本 ========="
+        #git clone https://github.com/passerby-b/JDDJ.git ./jddj
+        #cp ./jddj/jddj*.js ./
+        #rm -rf ./jddj
         echo "========= 开始下载curtinlv的脚本 ========="
         git clone https://github.com/curtinlv/JD-Script.git ./curtinlv
         find ./curtinlv/ -name "*py" -type f -exec cp {} ./ \;
