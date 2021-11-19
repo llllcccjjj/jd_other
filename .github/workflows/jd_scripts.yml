@@ -69,10 +69,10 @@ jobs:
         git clone -b main https://github.com/star261/jd.git ./star261
         cp -f ./star261/scripts/jd_*.js ./
         rm -rf ./star261
-        echo "========开始下载star261的脚本======="
-        git clone https://github.com/llllcccjjj/Ownusing_jd.git ./lcj
-        cp -f ./lcj/jd_*.js ./
-        rm -rf ./lcj
+        echo "========开始下载自己的脚本======="
+        git clone -b main https://github.com/llllcccjjj/Ownusing_jd.git ./lcj123
+        cp -f ./lcj123/jd_*.js ./
+        rm -rf ./lcj123
         #echo "========= 开始下载faker的脚本 ========="
         #git clone -b main https://github.com/shufflewzc/faker2.git ./faker
         #cp -f ./faker/jd_f[aco]*.js ./
