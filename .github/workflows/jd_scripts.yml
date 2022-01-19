@@ -78,8 +78,8 @@ jobs:
         #cp -f ./faker/jd_f[aco]*.js ./
         #rm -rf ./faker
         echo "========= 开始下载单文件脚本 ========="
-        wget -N https://raw.githubusercontent.com/Aaron-lv/sync/jd_scripts/jd_bean_change.js
-        wget -N https://raw.githubusercontent.com/cdle/carry/main/jd_zhanianshou.js
+        wget -N https://raw.githubusercontent.com/llllcccjjj/Ownusing_jd/main/jd_bean_change.js
+        #wget -N https://raw.githubusercontent.com/cdle/carry/main/jd_zhanianshou.js
         #wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_dpqd_diy.js
         #wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_joy_park_task.js
         #wget -N https://raw.githubusercontent.com/shufflewzc/faker2/main/jd_joy_park_help.js
